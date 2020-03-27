@@ -8,12 +8,26 @@ import {
   createAppContainer, createSwitchNavigator
 } from 'react-navigation'
 
-import firebase from './config';
+import {
+  createStore,
+  applyMiddleware
+} from 'redux'
+import {
+  Provider
+} from 'react-redux'
+import thunkMiddleware from 'redux-thunk'
+
+import reducer from './reducers'
+
+const middleware = applyMiddleware(thunkMiddleware)
+const store = createStore(reducer, middleware)
 
 export default class App extends React.Component {
   render(){
     return (
-      <AppNavigator/>
+      <Provider store={store}>
+        <AppNavigator/>
+      </Provider>
     );
   }
 }
